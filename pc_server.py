@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import random
 
 app = FastAPI()
 
@@ -13,12 +14,16 @@ def root():
 
 @app.post("/update")
 def update(data: SensorData):
-    # RL / object-detection logic will go here later
+    """
+    Called by the Flutter app every few seconds.
+    Receives IMU + encoder data, returns an RL action.
+    Replace the random policy below with your RL model.
+    """
     imu = data.imu
     counts = data.counts
-    print("IMU:", imu, "COUNTS:", counts)
-    # Example rule
-    action = "forward"
-    if abs(imu.get("gx", 0)) > 200:
-        action = "left"
+
+    # ---- RL Decision Logic (temporary placeholder) ----
+    actions = ["forward", "backward", "left", "right", "stop"]
+    action = random.choice(actions)
+    print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: {action}")
     return {"action": action}
