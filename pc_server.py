@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import random
+from fastapi.responses import FileResponse
+import os
+
 
 app = FastAPI()
 
@@ -11,6 +14,14 @@ class SensorData(BaseModel):
 @app.get("/")
 def root():
     return {"status": "ok"}
+
+@app.get("/download-data")
+def download_data():
+    file_path = "wheelz_data.csv"
+    if os.path.exists(file_path):
+        return FileResponse(path=file_path, filename="wheelz_data.csv", media_type="text/csv")
+    else:
+        return {"error": "No data file found"}
 
 @app.post("/update")
 def update(data: SensorData):
@@ -24,6 +35,6 @@ def update(data: SensorData):
 
     # ---- RL Decision Logic (temporary placeholder) ----
     print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: none")
-    with open("Wheelz_data.csv", "a") as f:
+    with open("robot_data.csv", "a") as f:
         f.write(f"{imu['gx']},{imu['gy']},{imu['gz']},{counts['left']},{counts['right']}\n")
     return {}
