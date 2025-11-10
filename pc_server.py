@@ -24,4 +24,4 @@ def update(data: SensorData):
 
     # ---- RL Decision Logic (temporary placeholder) ----
     print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: none")
-    return {"action": "stop"}
+    return {}
