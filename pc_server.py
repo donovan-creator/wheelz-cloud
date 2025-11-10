@@ -23,7 +23,5 @@ def update(data: SensorData):
     counts = data.counts
 
     # ---- RL Decision Logic (temporary placeholder) ----
-    actions = ["forward", "backward", "left", "right", "stop"]
-    action = random.choice(actions)
-    print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: {action}")
-    return {"action": action}
+    print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: none")
+    return {"action": "stop"}
