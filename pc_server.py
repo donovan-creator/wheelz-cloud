@@ -24,4 +24,6 @@ def update(data: SensorData):
 
     # ---- RL Decision Logic (temporary placeholder) ----
     print(f"IMU: {imu}, COUNTS: {counts}, RL ACTION: none")
+    with open("Wheelz_data.csv", "a") as f:
+        f.write(f"{imu['gx']},{imu['gy']},{imu['gz']},{counts['left']},{counts['right']}\n")
     return {}
